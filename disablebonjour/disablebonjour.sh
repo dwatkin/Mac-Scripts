@@ -21,7 +21,9 @@ then
 			echo "MULTICAST DISABLED, NO CHANGES MADE"
 		else
 			sudo /usr/libexec/PlistBuddy -c "Add :ProgramArguments: string -NoMulticastAdvertisements" /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist
-			echo "MULTICAST DISABLED (OS X 10.6-10.9), PLEASE REBOOT"
+			sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist
+ 			sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist
+			echo "MULTICAST DISABLED (OS X 10.6-10.9)"
 		fi
 		exit
 	else
@@ -35,7 +37,9 @@ then
 				echo "MULTICAST DISABLED, NO CHANGES MADE"
                 	else
                         	sudo /usr/libexec/PlistBuddy -c "Add :ProgramArguments: string --no-multicast" /System/Library/LaunchDaemons/com.apple.discoveryd.plist
-                        	echo "MULTICAST DISABLED (OSX 10.10), PLEASE REBOOT"
+                        	sudo launchctl unload /System/Library/LaunchDaemons/com.apple.discoveryd.plist
+				sudo launchctl load /System/Library/LaunchDaemons/com.apple.discoveryd.plist
+                        	echo "MULTICAST DISABLED (OSX 10.10)"
                 	fi
                 	exit
 		else
